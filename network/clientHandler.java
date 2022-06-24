@@ -12,18 +12,24 @@ public class clientHandler extends Thread{
     }
     @Override
     public void run(){
+        System.out.println("clientHandler run");
         try {
             DataInputStream dis=new DataInputStream(socket.getInputStream());
             DataOutputStream dos=new DataOutputStream(socket.getOutputStream());
 
-            String request=dis.readUTF();
-            Scanner input=new Scanner(request);
+            StringBuilder request=new StringBuilder();
+            int i= dis.read();
+            while (i != 0){
+                request.append((char) i);
+                i= dis.read();
+            }
+            Scanner input=new Scanner(request.toString());
             String command=input.nextLine();
             String data=input.nextLine();
 
             String response=new controller().run(command,data);
 
-            dos.writeUTF(response);
+            dos.writeBytes(response);
             dos.flush();
             dos.close();
             dis.close();

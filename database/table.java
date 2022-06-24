@@ -13,11 +13,13 @@ public class table {
     public table(String path){
         this.path=path;
     }
+
     public void insert(HashMap<String,String> row)throws Exception{
         FileWriter fr=new FileWriter(path,true);
         fr.write(convertor.mapToString(row)+"\n");
         fr.close();
     }
+
     public ArrayList<HashMap<String,String>> get() {
         try {
             File file = new File(path);

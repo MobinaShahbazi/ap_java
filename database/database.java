@@ -7,8 +7,7 @@ public class database {
     private HashMap<String,table> tables;
     private database(){
         tables=new HashMap<>();
-        tables.put("massages",new table("src/data/massages.txt"));
-
+        tables.put("massages",new table("src/data/massages.txt"));// table name , table 192.168.43.165
     }
     public static database getInstance(){
         if(instance==null){
