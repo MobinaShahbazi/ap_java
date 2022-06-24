@@ -10,7 +10,7 @@ public class client {
         DataInputStream dis=new DataInputStream(socket.getInputStream());
         DataOutputStream dos=new DataOutputStream(socket.getOutputStream());
 
-        dos.writeBytes("send\nmassage:hello every one,,me:mobina\u0000");//payam az front
+        dos.writeBytes("addUser\nuserName:hello every one,,email:mobina\u0000");//payam az front
         dos.flush();
         StringBuilder str=new StringBuilder();
         int i= dis.read();
