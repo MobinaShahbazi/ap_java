@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +23,13 @@ public class convertor {
             str.append(String.format("%s:%s,,",entry.getKey(),entry.getValue()));
         }
         str.delete(str.length()-2,str.length());
+        return str.toString();
+    }
+    public static String arrMapToString(ArrayList<HashMap<String,String>> arr){
+        StringBuilder str=new StringBuilder();
+        for(HashMap<String,String> row: arr){
+            str.append(mapToString(row)).append('\n');
+        }
         return str.toString();
     }
 }

@@ -6,11 +6,11 @@ import java.nio.charset.StandardCharsets;
 
 public class client {
     public static void main(String[] args) throws IOException {
-        Socket socket=new Socket("127.0.0.1",8000);
+        Socket socket=new Socket("127.0.0.1",3000);
         DataInputStream dis=new DataInputStream(socket.getInputStream());
         DataOutputStream dos=new DataOutputStream(socket.getOutputStream());
 
-        dos.writeBytes("addUser\nuserName:hello every one,,email:mobina\u0000");//payam az front
+        dos.writeBytes("signUp\nuserName:hello every one,,email:mobina\u0000");//payam az front
         dos.flush();
         StringBuilder str=new StringBuilder();
         int i= dis.read();
