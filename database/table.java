@@ -5,11 +5,12 @@ import utils.convertor;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class table {
-    private String path;
+    public String path;
     public table(String path){
         this.path=path;
     }
@@ -31,7 +32,7 @@ public class table {
                 data.add(convertor.stringToMap(str));
             }
             return data;
-        } catch (Exception e) {}
+        } catch (Exception e) {System.out.println(e.getMessage());}
         return new ArrayList<>();
     }
 }

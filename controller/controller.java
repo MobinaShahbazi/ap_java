@@ -33,7 +33,6 @@ public class controller {
     }
     private String addUser(HashMap<String,String> data){
         try {
-            database.getInstance().addTable("users",new table("src/data/users.txt"));
             database.getInstance().getTable("users").insert(data);
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
@@ -41,25 +40,21 @@ public class controller {
 
     private String login(HashMap<String,String> data){
         try {
-            //System.out.println("hi");
-            //System.out.println(database.getInstance().getTable("users").path);
             String validate="invalid\u0000";
-            /*
-            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
-            System.out.println("arrl: "+array.toArray().length);
 
-            for (HashMap map:array){
-                if( map.get("name").equals(data.get("name")) && map.get("password").equals(data.get("password")) ){
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
+
+            for (int i=0;i<array.size();i++){
+                if( array.get(i).get("userName").equals(data.get("userName")) && array.get(i).get("password").equals(data.get("password")) ){
                     validate="ok\u0000";
                     return validate;
                 }
-                else if( map.get("name").equals(data.get("name")) && !map.get("password").equals(data.get("password"))){
+
+                else if( array.get(i).get("userName").equals(data.get("userName")) && !array.get(i).get("password").equals(data.get("password"))){
                     validate="wrong pass\u0000";
                 }
 
             }
-            
-             */
             return validate;
         }catch (Exception e){return e.getMessage()+"\u0000";}
     }

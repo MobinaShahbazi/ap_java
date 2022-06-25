@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class database {
     private static database instance=null;
-    private HashMap<String,table> tables;
+    public HashMap<String,table> tables;
     private database(){
         tables=new HashMap<>();
         //tables.put("massages",new table("src/data/massages.txt"));// table name , table 192.168.43.165
