@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class table {
-    public String path;
+    private String path;
     public table(String path){
         this.path=path;
     }

@@ -9,47 +9,34 @@ import java.util.HashMap;
 
 public class controller {
     public String run(String command,String data){
-        System.out.println("controller run");
+        //System.out.println("controller run");
         HashMap<String,String> dataMap= convertor.stringToMap(data);
         System.out.println(command);
         switch (command){
             case "login" : return login(dataMap);
             case "signUp":return addUser(dataMap);
+
+            case "savePost" : return savePost(dataMap);
+            case "viewSavedPosts" : return viewSavedPosts(dataMap);
+            case "viewGList" : return viewGList(dataMap);
+
             case "editUser": return editUser(dataMap);
             case "addGroup" : return addGroup(dataMap);
             case "favorite" : return favorite(dataMap);
             case "editGroup" : return editGroup(dataMap);
             case "likePost" : return likePost(dataMap);
             case "disLikePost" : return disLikePost(dataMap);
-            case "savePost" : return savePost(dataMap);
             case "deletePost" : return deletePost(dataMap);
             case "addComment" : return addComment(dataMap);
             case "likeComment" : return likeComment(dataMap);
             case "disLikeComment" : return disLikeComment(dataMap);
-
-
         }
         return "invalid";
     }
-    private String addUser(HashMap<String,String> data){
-        try {
-            boolean isRepetitive=false;
-            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
-            System.out.println("arr size: "+array.size());
-            for (int i=0;i<array.size();i++){
-                if( array.get(i).get("userName").equals(data.get("userName")) ){
-                    isRepetitive=true;
-                }
-            }
-            if(!isRepetitive){
-                database.getInstance().getTable("users").insert(data);
-                return "new userName\u0000";
-            }
-            else
-                return "repetitive\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
+    private String  feed(){
 
+        return "";
+    }
     private String login(HashMap<String,String> data){
         try {
             String validate="invalid\u0000";
@@ -69,6 +56,51 @@ public class controller {
             }
             return validate;
         }catch (Exception e){return e.getMessage()+"\u0000";}
+    }
+
+    private String addUser(HashMap<String,String> data){
+        try {
+            boolean isRepetitive=false;
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
+            //System.out.println("arr size: "+array.size());
+            for (int i=0;i<array.size();i++){
+                if( array.get(i).get("userName").equals(data.get("userName")) ){
+                    isRepetitive=true;
+                }
+            }
+            if(!isRepetitive){
+                database.getInstance().getTable("users").insert(data);
+                database.getInstance().addTable(data.get("userName"),new table("src/data/savedPosts/"+ data.get("userName") +".txt"));
+                return "new userName\u0000";
+            }
+            else
+                return "repetitive\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
+    private String viewGList(HashMap<String,String> data){
+        System.out.println("savePost");
+        try {
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
+            String str=convertor.arrMapToString(array);
+            return str+"\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
+    private String savePost(HashMap<String,String> data){
+        System.out.println("savePost");
+        try {
+            database.getInstance().getTable(data.get("currentUser")).insert(data);
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
+    private String viewSavedPosts(HashMap<String,String> data){
+        try {
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("currentUser")).get();
+            String str=convertor.arrMapToString(array);
+            return str+"\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
     }
 
     private String editUser(HashMap<String,String> data){
@@ -101,11 +133,7 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-    private String savePost(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
+
     private String favorite(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";

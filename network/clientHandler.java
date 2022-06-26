@@ -12,7 +12,7 @@ public class clientHandler extends Thread{
     }
     @Override
     public void run(){
-        System.out.println("clientHandler run");
+        //System.out.println("clientHandler run");
         try {
             DataInputStream dis=new DataInputStream(socket.getInputStream());
             DataOutputStream dos=new DataOutputStream(socket.getOutputStream());

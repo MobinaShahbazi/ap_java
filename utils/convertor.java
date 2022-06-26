@@ -27,8 +27,10 @@ public class convertor {
     }
     public static String arrMapToString(ArrayList<HashMap<String,String>> arr){
         StringBuilder str=new StringBuilder();
-        for(HashMap<String,String> row: arr){
-            str.append(mapToString(row)).append('\n');
+        for(int i=0;i< arr.size();i++){
+            str.append(mapToString(arr.get(i)));
+            if(i< arr.size()-1)
+                str.append('\n');
         }
         return str.toString();
     }

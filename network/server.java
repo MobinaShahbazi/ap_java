@@ -7,6 +7,8 @@ public class server {
     public void start()throws Exception{
         try {
             database.getInstance().addTable("users",new table("src/data/users.txt"));
+            database.getInstance().addTable("groups",new table("src/data/groups.txt"));
+            database.getInstance().addTable("savedPosts",new table("src/data/savedPosts.txt"));
             ServerSocket ss=new ServerSocket(3000);
             while (true){
                 Socket socket=ss.accept();

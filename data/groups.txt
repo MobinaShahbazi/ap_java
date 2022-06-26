@@ -1,0 +1,5 @@
+name:Tourism,,user:ali76,,image:assets/tourism/traveller.jpg,,fav:false
+name:IMDb,,user:mmd,,image:assets/anim/imdb.jpg,,fav:true
+name:Novel Novels,,user:ghost,,image:assets/book/p2.jpg,,fav:true
+name:Best_Painters,,user:mbn,,image:assets/art/p1.jpg,,fav:false
+name:Soccer,,user:cutest,,image:assets/art/p1.jpg,,fav:fals
