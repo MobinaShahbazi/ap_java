@@ -18,7 +18,9 @@ public class controller {
 
             case "savePost" : return savePost(dataMap);
             case "viewSavedPosts" : return viewSavedPosts(dataMap);
+
             case "viewGList" : return viewGList(dataMap);
+            case "getGroupPosts" : return getGroupPosts(dataMap);
 
             case "editUser": return editUser(dataMap);
             case "addGroup" : return addGroup(dataMap);
@@ -79,9 +81,16 @@ public class controller {
     }
 
     private String viewGList(HashMap<String,String> data){
-        System.out.println("savePost");
         try {
             ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
+            String str=convertor.arrMapToString(array);
+            return str+"\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
+    private String getGroupPosts(HashMap<String,String> data){
+        try {
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("name")).get();
             String str=convertor.arrMapToString(array);
             return str+"\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
@@ -108,11 +117,20 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
+
+    private String addGroup(HashMap<String,String> data){
+        try {
+            database.getInstance().getTable(data.get("groups")).insert(data);
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
     private String deletePost(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
+
     private String addComment(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
@@ -145,11 +163,6 @@ public class controller {
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
     private String likePost(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
-    private String addGroup(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
