@@ -33,8 +33,20 @@ public class controller {
     }
     private String addUser(HashMap<String,String> data){
         try {
-            database.getInstance().getTable("users").insert(data);
-            return "massage successfully saved\u0000";
+            boolean isRepetitive=false;
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
+            System.out.println("arr size: "+array.size());
+            for (int i=0;i<array.size();i++){
+                if( array.get(i).get("userName").equals(data.get("userName")) ){
+                    isRepetitive=true;
+                }
+            }
+            if(!isRepetitive){
+                database.getInstance().getTable("users").insert(data);
+                return "new userName\u0000";
+            }
+            else
+                return "repetitive\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
 
