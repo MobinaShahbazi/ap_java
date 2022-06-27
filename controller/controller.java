@@ -21,6 +21,7 @@ public class controller {
 
             case "viewGList" : return viewGList();
             case "getGroupPosts" : return getGroupPosts(dataMap);
+            case "viewFeed" : return feed();
 
             case "editUser": return editUser(dataMap);
             case "addGroup" : return addGroup(dataMap);
@@ -36,8 +37,11 @@ public class controller {
         return "invalid";
     }
     private String  feed(){
+        try {
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("posts").get();
+            return convertor.arrMapToString(array);
+        }catch (Exception e){return e.getMessage();}
 
-        return "";
     }
     private String login(HashMap<String,String> data){
         try {
