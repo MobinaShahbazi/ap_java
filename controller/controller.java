@@ -94,6 +94,7 @@ public class controller {
         try {
             ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("name")).get();
             String str=convertor.arrMapToString(array);
+            System.out.println(str);
             return str+"\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
@@ -122,6 +123,7 @@ public class controller {
 
     private String addGroup(HashMap<String,String> data){
         try {
+            database.getInstance().addTable(data.get("name"),new table("src/data/groupPosts/"+data.get("name")+".txt"));
             database.getInstance().getTable("groups").insert(data);
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}

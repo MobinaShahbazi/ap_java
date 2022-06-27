@@ -9,6 +9,9 @@ public class server {
             database.getInstance().addTable("users",new table("src/data/users.txt"));
             database.getInstance().addTable("groups",new table("src/data/groups.txt"));
             database.getInstance().addTable("IMDb",new table("src/data/groupPosts/IMDb.txt"));
+            database.getInstance().addTable("Best_Painters",new table("src/data/groupPosts/Best_Painters.txt"));
+            database.getInstance().addTable("Soccer",new table("src/data/groupPosts/Soccer.txt"));
+            database.getInstance().addTable("Novel Novels",new table("src/data/groupPosts/Novel Novels.txt"));
             database.getInstance().addTable("Tourism",new table("src/data/groupPosts/Tourism.txt"));
             database.getInstance().addTable("savedPosts",new table("src/data/savedPosts.txt"));
             ServerSocket ss=new ServerSocket(3000);
