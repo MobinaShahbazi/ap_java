@@ -56,6 +56,9 @@ public class controller {
                 }
 
             }
+            if(validate.equals("ok\u0000")){
+                database.getInstance().addTable(data.get("userName"),new table("src/data/savedPosts/"+ data.get("userName") +".txt"));
+            }
             return validate;
         }catch (Exception e){return e.getMessage()+"\u0000";}
     }
