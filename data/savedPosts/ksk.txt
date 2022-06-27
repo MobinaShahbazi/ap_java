@@ -1,0 +1,1 @@
+date:2022-06-27 19:33:33.461855,,image:assets/newpost.jpg,,score:0,,currentUser:ksk,,groupName:Best_Painters,,groupAdmin:mbn,,caption:2,,groupImage:assets/art/p1.jpg,,title:1,,user:ksk

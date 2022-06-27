@@ -25,6 +25,7 @@ public class controller {
 
             case "editUser": return editUser(dataMap);
             case "addGroup" : return addGroup(dataMap);
+            case "addPost" : return addPost(dataMap);
             case "favorite" : return favorite(dataMap);
             case "editGroup" : return editGroup(dataMap);
             case "likePost" : return likePost(dataMap);
@@ -43,6 +44,16 @@ public class controller {
         }catch (Exception e){return e.getMessage();}
 
     }
+
+    private String  addPost(HashMap<String,String> data){
+        try {
+            database.getInstance().getTable("posts").insert(data);
+            database.getInstance().getTable(data.get("groupName")).insert(data);
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return e.getMessage();}
+
+    }
+
     private String login(HashMap<String,String> data){
         try {
             String validate="invalid\u0000";
