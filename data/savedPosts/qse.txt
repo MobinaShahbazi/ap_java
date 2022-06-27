@@ -1,2 +1,0 @@
-date:2022-06-27 21:33:32.441190,,image:assets/newpost.jpg,,score:0,,currentUser:qse,,groupName:Novel Novels,,groupAdmin:ghost,,caption:xxxxxxxxxxx,,groupImage:assets/book/p2.jpg,,title:x,,user:qse
-date:2022-03-10 00:00:00.000,,image:assets/anim/hotel.jpg,,score:97,,currentUser:qse,,groupName:IMDb,,groupAdmin:zizi,,caption:Dracula, who operates a high-end resort away from the human world, goes into overprotective mode when a boy discovers the resort and falls for the count's teenaged daughter.,,groupImage:assets/anim/imdb.jpg,,title:Hotel Transylvania,,user:mbn

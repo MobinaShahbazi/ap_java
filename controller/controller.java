@@ -26,7 +26,7 @@ public class controller {
             case "editUser": return editUser(dataMap);
             case "addGroup" : return addGroup(dataMap);
             case "addPost" : return addPost(dataMap);
-            case "favorite" : return favorite(dataMap);
+            case "changeFavorite" : return favorite(dataMap);
             case "editGroup" : return editGroup(dataMap);
             case "likePost" : return likePost(dataMap);
             case "disLikePost" : return disLikePost(dataMap);
@@ -103,7 +103,8 @@ public class controller {
         try {
             ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
             String str=convertor.arrMapToString(array);
-            //System.out.println("str: "+str);
+            System.out.println(array.size());
+            System.out.println("str: "+str);
             return str+"\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
@@ -175,7 +176,21 @@ public class controller {
     }
 
     private String favorite(HashMap<String,String> data){
+        System.out.println("fav");
         try {
+            int index=indexOfGrp(data.get("name"));
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
+            ArrayList<HashMap<String,String>> newArray=new ArrayList<>();
+            for(int i=0;i<array.size();i++){
+                if(i!=index){
+                    newArray.add(array.get(i));
+                }
+            }
+            newArray.add(data);
+            database.getInstance().getTable("groups").clear();
+            for(int i=0;i<newArray.size();i++){
+                database.getInstance().getTable("groups").insert(newArray.get(i));
+            }
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
@@ -188,6 +203,16 @@ public class controller {
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
+    private int indexOfGrp(String name){
+        int index=0;
+        ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
+        for(int i=0;i<array.size();i++){
+            if(array.get(i).get("name").equals(name))
+                index=i;
+        }
+        return index;
     }
 
 }

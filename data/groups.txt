@@ -1,6 +1,4 @@
-name:Tourism,,user:ali76,,image:assets/tourism/traveller.jpg,,fav:false
-name:IMDb,,user:mmd,,image:assets/anim/imdb.jpg,,fav:true
-name:Novel Novels,,user:ghost,,image:assets/book/p2.jpg,,fav:true
-name:Best_Painters,,user:mbn,,image:assets/art/p1.jpg,,fav:false
-name:Soccer,,user:cutest,,image:assets/football/messi.jpg,,fav:fals
-image:assets/newg.jpg,,name:grp0,,fav:false,,user:syyu
+image:assets/anim/imdb.jpg,,name:IMDb,,fav:true,,user:mmd
+image:assets/book/p2.jpg,,name:Novel Novels,,fav:true,,user:ghost
+image:assets/art/p1.jpg,,name:Best_Painters,,fav:true,,user:mbn
+image:assets/tourism/traveller.jpg,,name:Tourism,,fav:true,,user:ali76

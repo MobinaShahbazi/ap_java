@@ -4,6 +4,7 @@ import utils.convertor;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +20,13 @@ public class table {
         FileWriter fr=new FileWriter(path,true);
         fr.write(convertor.mapToString(row)+"\n");
         fr.close();
+    }
+
+    public void clear()throws Exception{
+        File file = new File(path);
+        PrintWriter writer = new PrintWriter(file);
+        writer. print("");
+        writer. close();
     }
 
     public ArrayList<HashMap<String,String>> get() {
