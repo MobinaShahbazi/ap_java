@@ -1,1 +1,0 @@
-date:2022-06-27 21:59:52.786539,,image:assets/newpost.jpg,,currentUser:bb,,groupName:Best_Painters,,groupAdmin:mbn,,like:0,,dislike:0,,caption:kfkfkf,,groupImage:assets/art/p1.jpg,,title:n,,user:bb
