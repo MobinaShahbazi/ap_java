@@ -35,7 +35,7 @@ public class controller {
             case "deletePost" : return deletePost(dataMap);
             case "addComment" : return addComment(dataMap);
             case "likeComment" : return likeComment(dataMap);
-            case "disLikeComment" : return disLikeComment(dataMap);
+            case "getComments" : return getComments(dataMap);
         }
         return "invalid";
     }
@@ -52,6 +52,14 @@ public class controller {
             database.getInstance().getTable("posts").insert(data);
             database.getInstance().getTable(data.get("groupName")).insert(data);
             return "massage successfully saved\u0000";
+        }catch (Exception e){return e.getMessage();}
+    }
+    private String  getComments(HashMap<String,String> data){
+        try {
+            System.out.println(data.get("title"));
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("title")).get();
+            System.out.println(array.size());
+            return convertor.arrMapToString(array)+"\u0000";
         }catch (Exception e){return e.getMessage();}
 
     }
