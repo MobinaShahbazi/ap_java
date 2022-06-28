@@ -24,8 +24,10 @@ public class controller {
             case "viewFeed" : return feed();
 
             case "editUser": return editUser(dataMap);
+            case "unSavePost": return unSavePost(dataMap);
             case "addGroup" : return addGroup(dataMap);
             case "addPost" : return addPost(dataMap);
+            case "removePost" : return removePost(dataMap);
             case "changeFavorite" : return favorite(dataMap);
             case "editGroup" : return editGroup(dataMap);
             case "likeDislike" : return likePost(dataMap);
@@ -133,13 +135,11 @@ public class controller {
             return str+"\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private String editUser(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private String addGroup(HashMap<String,String> data){
         try {
             database.getInstance().addTable(data.get("name"),new table("src/data/groupPosts/"+data.get("name")+".txt"));
@@ -147,13 +147,11 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private String deletePost(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private String addComment(HashMap<String,String> data){
         try {
             return "massage successfully saved\u0000";
@@ -169,12 +167,6 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-    private String disLikePost(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
-
     private String favorite(HashMap<String,String> data){
         System.out.println("fav");
         try {
@@ -198,6 +190,51 @@ public class controller {
         try {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+    private String unSavePost(HashMap<String,String> data){
+        try {
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("currentUser")).get();
+            int index=indexOfPstGrpPst(data.get("name"),data.get("groupName"));
+            ArrayList<HashMap<String,String>> newArray= new ArrayList<>();
+            for(int i=0;i<array.size();i++){
+                if(i!=index){
+                    newArray.add(array.get(i));
+                }
+            }
+            database.getInstance().getTable(data.get("currentUser")).clear();
+            for(int i=0;i<newArray.size();i++){
+                database.getInstance().getTable(data.get("currentUser")).insert(newArray.get(i));
+            }
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+    private String  removePost(HashMap<String,String> data){
+        try {
+            ArrayList<HashMap<String,String>> feedPosts=database.getInstance().getTable("posts").get();
+            ArrayList<HashMap<String,String>> groupPosts=database.getInstance().getTable(data.get("groupName")).get();
+            ArrayList<HashMap<String,String>> newFeedPosts=new ArrayList<>();
+            ArrayList<HashMap<String,String>> newGroupPosts=new ArrayList<>();
+            for(int i=0;i<feedPosts.size();i++){
+                if(!feedPosts.get(i).get("title").equals(data.get("title"))){
+                    newFeedPosts.add(feedPosts.get(i));
+                }
+            }
+            database.getInstance().getTable("posts").clear();
+            for(int i=0;i<newFeedPosts.size();i++){
+                database.getInstance().getTable("posts").insert(newFeedPosts.get(i));
+            }
+            for(int i=0;i<groupPosts.size();i++){
+                if(!feedPosts.get(i).get("title").equals(data.get("title"))){
+                    newGroupPosts.add(groupPosts.get(i));
+                }
+            }
+            database.getInstance().getTable(data.get("groupName")).clear();
+            for(int i=0;i<newGroupPosts.size();i++){
+                database.getInstance().getTable(data.get("groupName")).insert(newGroupPosts.get(i));
+            }
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return e.getMessage();}
+
     }
     private String likePost(HashMap<String,String> data){
         try {
@@ -232,7 +269,6 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private int indexOfGrp(String name){
         int index=0;
         ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();
@@ -242,7 +278,6 @@ public class controller {
         }
         return index;
     }
-
     private int indexOfPstFeed(String title){
         int index=0;
         ArrayList<HashMap<String,String>> array=database.getInstance().getTable("posts").get();
@@ -252,7 +287,6 @@ public class controller {
         }
         return index;
     }
-
     private int indexOfPstGrpPst(String title, String groupName){
         int index=0;
         ArrayList<HashMap<String,String>> array=database.getInstance().getTable(groupName).get();
