@@ -34,7 +34,7 @@ public class controller {
             //case "disLikePost" : return disLikePost(dataMap);
             case "deletePost" : return deletePost(dataMap);
             case "addComment" : return addComment(dataMap);
-            case "likeComment" : return likeComment(dataMap);
+            case "likeDislikeComment" : return likeComment(dataMap);
             case "getComments" : return getComments(dataMap);
         }
         return "invalid";
@@ -167,16 +167,7 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-    private String likeComment(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
-    private String disLikeComment(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
+
     private String favorite(HashMap<String,String> data){
         System.out.println("fav");
         try {
@@ -245,6 +236,25 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return e.getMessage();}
 
+    }
+    private String likeComment(HashMap<String,String> data){
+        try {
+            ArrayList<HashMap<String,String>> postComments=database.getInstance().getTable(data.get("title")).get();
+            ArrayList<HashMap<String,String>> newArray=new ArrayList<>();
+            for(int i=0;i< postComments.size();i++){
+                if(!postComments.get(i).get("content").equals(data.get("content")) ){
+                    newArray.add(postComments.get(i));
+                    System.out.println(postComments.get(i));
+                }
+            }
+            newArray.add(data);
+            database.getInstance().getTable(data.get("title")).clear();
+            for(int i=0;i< newArray.size();i++){
+                database.getInstance().getTable(data.get("title")).insert(newArray.get(i));
+            }
+
+            return "massage successfully saved\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
     }
     private String likePost(HashMap<String,String> data){
         try {

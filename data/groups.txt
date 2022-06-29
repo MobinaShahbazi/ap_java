@@ -1,4 +1,4 @@
 image:assets/anim/imdb.jpg,,name:IMDb,,fav:true,,user:mmd
 image:assets/book/p2.jpg,,name:Novel Novels,,fav:true,,user:ghost
-image:assets/tourism/traveller.jpg,,name:Tourism,,fav:false,,user:ali76
+image:assets/tourism/traveller.jpg,,name:Tourism,,fav:false,,user:mbn
 image:assets/art/p1.jpg,,name:Best_Painters,,fav:false,,user:mbn
