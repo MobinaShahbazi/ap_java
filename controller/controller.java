@@ -4,6 +4,7 @@ import database.*;
 import utils.convertor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -24,6 +25,7 @@ public class controller {
             case "viewFeed" : return feed();
 
             case "editUser": return editUser(dataMap);
+            case "isRepetitive": return isRepetitive(dataMap);
             case "unSavePost": return unSavePost(dataMap);
             case "addGroup" : return addGroup(dataMap);
             case "addPost" : return addPost(dataMap);
@@ -109,6 +111,22 @@ public class controller {
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
 
+    private String isRepetitive(HashMap<String,String> data){
+        try {
+            System.out.println("lilo");
+            boolean isRepetitive=false;
+            ArrayList<HashMap<String,String>> array=database.getInstance().getTable("users").get();
+            for (int i=0;i<array.size();i++){
+                if( array.get(i).get("userName").equals(data.get("userName")) ){
+                    isRepetitive=true;
+                }
+            }
+            if(isRepetitive)
+                return "repetitive\u0000";
+            return "new userName\u0000";
+        }catch (Exception e){return "somethings goes wrong\u0000";}
+    }
+
     private String viewGList(){
         System.out.println("viewGList");
         try {
@@ -139,15 +157,36 @@ public class controller {
 
     private String viewSavedPosts(HashMap<String,String> data){
         try {
+            System.out.println(data.get("currentUser"));
             ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("currentUser")).get();
+            System.out.println(array.size());
             String str=convertor.arrMapToString(array);
+            System.out.println(str);
             return str+"\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return "somethings goes wrong\u0000";}
     }
     private String editUser(HashMap<String,String> data){
         try {
+            ArrayList<HashMap<String,String>> users=database.getInstance().getTable("users").get();
+            ArrayList<HashMap<String,String>> newUsers=new ArrayList<>();
+            for(int i=0;i< users.size();i++){
+                if(!users.get(i).get("userName").equals(data.get("preUserName"))){
+                    newUsers.add(users.get(i));
+                    System.out.println(users.get(i).get("userName") +"   "+data.get("preUserName"));
+                }
+            }
+            database.getInstance().getTable(data.get("preUserName")).remane("src/data/savedPosts/"+data.get("userName")+".txt");
+            database.getInstance().addTable(data.get("userName"),new table("src/data/savedPosts/"+data.get("userName")+".txt"));
+            data.remove("preUserName");
+            newUsers.add(data);
+            database.getInstance().getTable("users").clear();
+            for(int i=0;i< newUsers.size();i++){
+                database.getInstance().getTable("users").insert(newUsers.get(i));
+            }
             return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
+        }catch (Exception e){return e.getMessage()+"\u0000";}
     }
     private String addGroup(HashMap<String,String> data){
         try {
@@ -167,7 +206,6 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-
     private String favorite(HashMap<String,String> data){
         System.out.println("fav");
         try {
@@ -289,6 +327,7 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
+
     private int indexOfGrp(String name){
         int index=0;
         ArrayList<HashMap<String,String>> array=database.getInstance().getTable("groups").get();

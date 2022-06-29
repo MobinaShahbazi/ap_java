@@ -22,6 +22,16 @@ public class table {
         fr.close();
     }
 
+    public void remove(){
+        File file = new File(path);
+        file.delete();
+    }
+
+    public void remane(String newPath){
+        File file = new File(path);
+        file.renameTo(new File(newPath));
+    }
+
     public void clear()throws Exception{
         File file = new File(path);
         PrintWriter writer = new PrintWriter(file);

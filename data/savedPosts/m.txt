@@ -1,1 +1,0 @@
-date:2021-11-10 00:00:00.000,,image:assets/tourism/india.jpg,,currentUser:m,,groupName:Tourism,,groupAdmin:mbn,,like:40,,dislike:4,,caption:An immense mausoleum of white marble, built in Agra between 1631 and 1648 by order of the Mughal emperor Shah Jahan in memory of his favourite wife.,,comment:3,,groupImage:assets/tourism/traveller.jpg,,title:Taj Mahal,,user:mmd
