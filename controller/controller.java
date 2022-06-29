@@ -49,6 +49,7 @@ public class controller {
 
     private String  addPost(HashMap<String,String> data){
         try {
+            database.getInstance().addTable(data.get("title"),new table("src/data/comments/"+data.get("title")+".txt"));
             database.getInstance().getTable("posts").insert(data);
             database.getInstance().getTable(data.get("groupName")).insert(data);
             return "massage successfully saved\u0000";
