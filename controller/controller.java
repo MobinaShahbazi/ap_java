@@ -2,28 +2,21 @@ package controller;
 
 import database.*;
 import utils.convertor;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-
 
 public class controller {
     public String run(String command,String data){
-        //System.out.println("controller run");
         HashMap<String,String> dataMap= convertor.stringToMap(data);
         System.out.println(command);
         switch (command){
             case "login" : return login(dataMap);
             case "signUp":return addUser(dataMap);
-
             case "savePost" : return savePost(dataMap);
             case "viewSavedPosts" : return viewSavedPosts(dataMap);
-
             case "viewGList" : return viewGList();
             case "getGroupPosts" : return getGroupPosts(dataMap);
             case "viewFeed" : return feed();
-
             case "editUser": return editUser(dataMap);
             case "isRepetitive": return isRepetitive(dataMap);
             case "unSavePost": return unSavePost(dataMap);
@@ -31,9 +24,7 @@ public class controller {
             case "addPost" : return addPost(dataMap);
             case "removePost" : return removePost(dataMap);
             case "changeFavorite" : return favorite(dataMap);
-            case "editGroup" : return editGroup(dataMap);
             case "likeDislike" : return likePost(dataMap);
-            //case "disLikePost" : return disLikePost(dataMap);
             case "deletePost" : return deletePost(dataMap);
             case "addComment" : return addComment(dataMap);
             case "likeDislikeComment" : return likeComment(dataMap);
@@ -48,7 +39,6 @@ public class controller {
         }catch (Exception e){return e.getMessage();}
 
     }
-
     private String  addPost(HashMap<String,String> data){
         try {
             database.getInstance().addTable(data.get("title"),new table("src/data/comments/"+data.get("title")+".txt"));
@@ -66,7 +56,6 @@ public class controller {
         }catch (Exception e){return e.getMessage();}
 
     }
-
     private String login(HashMap<String,String> data){
         try {
             String validate="invalid\u0000";
@@ -165,16 +154,17 @@ public class controller {
             return str+"\u0000";
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return "somethings goes wrong\u0000";}
+            return "\u0000";}
     }
     private String editUser(HashMap<String,String> data){
         try {
+            System.out.println(":::"+data.get("preUserName"));
             ArrayList<HashMap<String,String>> users=database.getInstance().getTable("users").get();
             ArrayList<HashMap<String,String>> newUsers=new ArrayList<>();
             for(int i=0;i< users.size();i++){
                 if(!users.get(i).get("userName").equals(data.get("preUserName"))){
                     newUsers.add(users.get(i));
-                    System.out.println(users.get(i).get("userName") +"   "+data.get("preUserName"));
+                    //System.out.println(users.get(i).get("userName") +"   "+data.get("preUserName"));
                 }
             }
             database.getInstance().getTable(data.get("preUserName")).remane("src/data/savedPosts/"+data.get("userName")+".txt");
@@ -225,14 +215,11 @@ public class controller {
             return "massage successfully saved\u0000";
         }catch (Exception e){return "somethings goes wrong\u0000";}
     }
-    private String editGroup(HashMap<String,String> data){
-        try {
-            return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
-    }
     private String unSavePost(HashMap<String,String> data){
         try {
+            System.out.println(data.get("currentUser"));
             ArrayList<HashMap<String,String>> array=database.getInstance().getTable(data.get("currentUser")).get();
+            System.out.println(2);
             int index=indexOfPstGrpPst(data.get("name"),data.get("groupName"));
             ArrayList<HashMap<String,String>> newArray= new ArrayList<>();
             for(int i=0;i<array.size();i++){
@@ -245,7 +232,7 @@ public class controller {
                 database.getInstance().getTable(data.get("currentUser")).insert(newArray.get(i));
             }
             return "massage successfully saved\u0000";
-        }catch (Exception e){return "somethings goes wrong\u0000";}
+        }catch (Exception e){return e.getMessage()+"\u0000";}
     }
     private String  removePost(HashMap<String,String> data){
         try {
